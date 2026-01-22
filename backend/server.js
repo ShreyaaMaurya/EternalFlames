@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API routes (MUST come BEFORE static files and catch-all)
 app.use("/api/admin", require("./routes/adminRoutes"));
-app.use("/api", require("./routes/authRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/message", require("./routes/messageRoutes"));
@@ -27,8 +27,12 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "../my-project")));
 
-// Catch-all for frontend (MUST be last)
+// Catch-all for frontend SPA (MUST be last - only for non-API routes)
 app.use((req, res) => {
+  // Don't serve index.html for API routes that were not found
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({ error: "API endpoint not found" });
+  }
   res.sendFile(path.join(__dirname, "../my-project/index.html"));
 });
 

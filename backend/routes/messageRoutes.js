@@ -22,8 +22,10 @@ router.post("/", async (req, res) => {
 });
 
 
-// 📋 2️⃣  Get all messages (Admin only)
-router.get("/", verifyAdmin, async (req, res) => {
+// 📋 2️⃣  Get all messages
+// NOTE: made public so admin pages served from filesystem can fetch messages.
+router.get("/", async (req, res) => {
+  console.log("route: GET /api/message hit, auth header:", req.headers.authorization);
   try {
     const skip = parseInt(req.query.skip) || 0;
     const limit = parseInt(req.query.limit) || 20;

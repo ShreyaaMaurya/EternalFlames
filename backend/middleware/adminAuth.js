@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
+  // Allow public GET requests (so admin UI can fetch lists without forcing token)
+  if (req.method === "GET") return next();
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {

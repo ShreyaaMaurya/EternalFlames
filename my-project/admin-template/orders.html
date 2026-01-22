@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Manage Orders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">EternalFlame Admin</h1>
+      <div class="space-x-3">
+        <a href="admin-dashboard.html" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto px-6 mt-10 mb-6">
+    <h2 class="text-3xl font-semibold text-gray-800">Manage Orders</h2>
+    <p class="text-gray-500 text-sm mt-1">View and update all customer orders.</p>
+  </header>
+
+  <!-- Orders Table -->
+  <main class="max-w-7xl mx-auto px-6 pb-16">
+    <div class="overflow-x-auto bg-white shadow-md rounded-2xl p-6">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Order ID</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Customer</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Items</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Total (₹)</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Status</th>
+            <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="ordersContainer" class="divide-y divide-gray-200">
+          <!-- Orders will load here -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    async function loadOrders() {
+      try {
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+          window.location.href = "/adminLog.html";
+          return;
+        }
+
+        const res = await fetch("http://localhost:4000/api/orders", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const orders = await res.json();
+        const container = document.getElementById("ordersContainer");
+        container.innerHTML = "";
+
+        if (orders.length === 0) {
+          container.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-gray-500">No orders yet.</td></tr>`;
+          return;
+        }
+
+        orders.forEach(o => {
+          container.insertAdjacentHTML("beforeend", `
+            <tr class="hover:bg-gray-50 transition">
+              <td class="px-4 py-3 font-semibold text-gray-800">#${o._id.slice(-6)}</td>
+              <td class="px-4 py-3">
+                <p class="font-medium">${o.customerName}</p>
+                <p class="text-sm text-gray-500">${o.customerEmail}</p>
+                <p class="text-sm text-gray-500">${o.customerPhone}</p>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-700">
+                ${o.items.map(i => `<div>${i.name} × ${i.quantity}</div>`).join('')}
+              </td>
+              <td class="px-4 py-3 font-semibold text-gray-800">₹${o.totalAmount}</td>
+              <td class="px-4 py-3">
+                <select onchange="updateStatus('${o._id}', this.value)" class="border border-gray-300 rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500">
+                  <option ${o.status === "Pending" ? "selected" : ""}>Pending</option>
+                  <option ${o.status === "Shipped" ? "selected" : ""}>Shipped</option>
+                  <option ${o.status === "Delivered" ? "selected" : ""}>Delivered</option>
+                  <option ${o.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
+                </select>
+              </td>
+              <td class="px-4 py-3 text-right">
+                <button onclick="viewOrderDetails('${o._id}')" class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700 transition mr-2">View Details</button>
+                <button onclick="deleteOrder('${o._id}')" class="bg-red-600 text-white px-3 py-1 rounded-md text-sm hover:bg-red-700 transition">Delete</button>
+              </td>
+            </tr>
+          `);
+        });
+      } catch (err) {
+        console.error("Error loading orders:", err);
+      }
+    }
+
+    async function updateStatus(id, newStatus) {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`http://localhost:4000/api/orders/${id}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+      const data = await res.json();
+      alert(data.message);
+    }
+
+    async function deleteOrder(id) {
+      if (confirm("Are you sure you want to delete this order?")) {
+        const token = localStorage.getItem("adminToken");
+        const res = await fetch(`http://localhost:4000/api/orders/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        alert(data.message);
+        loadOrders();
+      }
+    }
+
+    async function viewOrderDetails(orderId) {
+      try {
+        const token = localStorage.getItem("adminToken");
+        const res = await fetch(`http://localhost:4000/api/orders/${orderId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const order = await res.json();
+
+        if (res.ok) {
+          // Display order details in a modal or alert for now
+          const details = `
+            Order ID: ${order._id}
+            Customer: ${order.customerName} (${order.customerEmail}, ${order.customerPhone})
+            Address: ${order.address}, ${order.city}, ${order.pincode}
+            Items: ${order.items.map(i => `${i.name} x${i.quantity} @ ₹${i.price}`).join(', ')}
+            Total: ₹${order.totalAmount}
+            Status: ${order.status}
+            Date: ${new Date(order.createdAt).toLocaleString()}
+          `;
+          alert(details);
+        } else {
+          alert(order.message || 'Failed to load order details');
+        }
+      } catch (err) {
+        console.error("Error fetching order details:", err);
+        alert('Error loading order details');
+      }
+    }
+
+    // Start polling for real-time updates every 10 seconds
+    setInterval(loadOrders, 10000);
+
+    loadOrders();
+  </script>
+
+</body>
+</html>

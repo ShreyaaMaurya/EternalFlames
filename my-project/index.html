@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EternalFlame | Artisanal Candles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-beige: #f5f0e6;
+            --terracotta: #a85d44;
+            --clay-text: #1C1C1C;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-beige); color: var(--clay-text); margin: 0; padding: 0; }
+        .font-display { font-family: 'Cormorant Garamond', serif; }
+
+        /* Professional Ring Loader */
+        .eternal-loader {
+            width: 50px; padding: 4px; aspect-ratio: 1; border-radius: 50%; background: var(--terracotta);
+            --_m: conic-gradient(#0000 10%,#000), linear-gradient(#000 0 0) content-box;
+            -webkit-mask: var(--_m); mask: var(--_m); -webkit-mask-composite: source-out; mask-composite: subtract;
+            animation: l3 1s infinite linear;
+        }
+        @keyframes l3 { to { transform: rotate(1turn); } }
+        .loader-hide { opacity: 0; visibility: hidden; transition: opacity 0.8s ease-out, visibility 0.8s; }
+    </style>
+</head>
+<body>
+
+<div id="loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#f5f0e6]">
+    <div class="eternal-loader"></div>
+    <p class="mt-8 font-display text-[var(--terracotta)] text-[10px] uppercase tracking-[0.6em] animate-pulse">Eternal Flame</p>
+</div>
+
+<div id="toast-container" class="fixed bottom-10 right-10 z-[1000] flex flex-col gap-3"></div>
+
+<div id="header"></div>
+
+<section class="relative w-full min-h-screen bg-[#F9F6F1] flex flex-col overflow-hidden">
+    <div class="relative h-[60vh] w-full overflow-hidden">
+        <img alt="Luxury candle lifestyle" class="w-full h-full object-cover grayscale-[0.2] transition-transform duration-[10000ms] hover:scale-110" src="https://images.unsplash.com/photo-1557761830-8d36eedd1718?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170"/>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#F9F6F1]"></div>
+        <div class="absolute top-12 left-0 right-0 z-20 flex justify-center items-center">
+            <div class="text-[10px] font-sans tracking-[0.5em] uppercase text-white/80">MADE WITH LOVE</div>
+        </div>
+    </div>
+    <div class="flex-grow flex flex-col justify-center items-center px-10 text-center bg-[#F9F6F1]">
+        <div class="space-y-8 max-w-2xl">
+            <div class="space-y-4">
+                <h1 class="font-display text-5xl md:text-7xl font-light tracking-wider">EternalFlame</h1>
+                <div class="w-8 h-[1px] bg-[#B59978]/40 mx-auto"></div>
+                <p class="text-[#8C8376] text-sm md:text-base font-light tracking-widest uppercase">Ignite your passion, spark the extraordinary.</p>
+            </div>
+            <button class="group relative px-12 py-4 transition-all duration-700">
+                <span class="relative z-10 text-[11px] font-sans uppercase tracking-[0.4em] opacity-70 group-hover:opacity-100 transition-opacity">Discover More</span>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-[1px] bg-[#B59978]/60 group-hover:w-full transition-all duration-700"></div>
+            </button>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-30 animate-bounce">
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+        </div>
+    </div>
+</section>
+
+<div class="py-32 bg-white text-center px-10">
+    <h2 class="font-display text-4xl md:text-6xl mb-8">Glass Candles</h2>
+    <p class="max-w-3xl mx-auto text-[#8C8376] leading-relaxed font-light tracking-wide text-sm md:text-base">
+        A handcrafted aromatic candle poured into an elegant glass jar. Designed to elevate your space with a soft warm glow, this candle spreads a soothing fragrance that relaxes the mind and enhances the ambiance.
+    </p>
+</div>
+
+<section class="bg-[#F9F6F1] py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="font-display text-4xl text-center mb-16 tracking-widest uppercase opacity-80">Best Sellers</h2>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+            </div>
+        <div class="flex justify-center mt-20">
+            <button id="viewMoreBtn" class="px-10 py-4 border border-[var(--clay-text)] text-[10px] uppercase tracking-[0.3em] hover:bg-[var(--clay-text)] hover:text-white transition-all duration-500">
+                View More Collection
+            </button>
+        </div>
+    </div>
+</section>
+
+<div id="quickViewModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+    <div class="bg-[#F9F6F1] w-full max-w-2xl shadow-2xl relative flex flex-col md:flex-row overflow-hidden rounded-sm">
+        <button id="closeModal" class="absolute top-4 right-4 z-10 text-gray-400 hover:text-black transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="w-full md:w-1/2 h-64 md:h-auto">
+            <img id="modalImage" src="" alt="Product" class="w-full h-full object-cover grayscale-[0.1]">
+        </div>
+        <div class="p-10 w-full md:w-1/2 flex flex-col justify-center">
+            <h2 id="modalName" class="font-display text-3xl mb-2"></h2>
+            <p id="modalPrice" class="text-[var(--terracotta)] font-medium tracking-widest mb-6"></p>
+            <p id="modalDesc" class="text-xs text-[#8C8376] leading-relaxed mb-8 font-light tracking-wide"></p>
+            <div class="flex flex-col gap-3">
+                <button id="addToCartBtn" class="w-full py-4 bg-[var(--clay-text)] text-white text-[10px] uppercase tracking-[0.3em] hover:bg-[var(--terracotta)] transition-colors">Add to Bag</button>
+                <button id="buyNowBtn" class="w-full py-4 border border-[var(--clay-text)] text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 transition-colors">Buy Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+<script src="include.js"></script>
+
+<script>
+    // --- UTILITIES ---
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('loader').classList.add('loader-hide'), 800);
+    });
+
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = "bg-[#1C1C1C] text-white px-6 py-4 rounded-sm shadow-2xl flex items-center gap-4 transform translate-y-10 opacity-0 transition-all duration-500 font-sans text-[10px] uppercase tracking-[0.2em]";
+        toast.innerHTML = `<span class="material-symbols-outlined text-sm">check_circle</span><span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 100);
+        setTimeout(() => {
+            toast.classList.add('opacity-0', '-translate-y-2');
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+
+    // --- PRODUCT LOGIC ---
+    let skip = 0;
+    const limit = 4;
+    const productGrid = document.getElementById("productGrid");
+    const viewMoreBtn = document.getElementById("viewMoreBtn");
+
+    async function loadProducts() {
+        try {
+            const res = await fetch(`http://localhost:4000/api/products?skip=${skip}&limit=${limit}`);
+            const data = await res.json();
+            const products = data.products || [];
+            
+            products.forEach(p => {
+                const card = document.createElement("div");
+                card.className = "group cursor-pointer";
+                card.innerHTML = `
+                    <div class="relative aspect-[4/5] overflow-hidden mb-6 bg-white">
+                        <img src="${p.image}" class="h-full w-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]"/>
+                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-display text-xl mb-1">${p.name}</h3>
+                        <p class="text-[var(--terracotta)] text-sm tracking-widest font-light">₹${p.price}</p>
+                    </div>
+                `;
+                card.onclick = () => openQuickView(p);
+                productGrid.appendChild(card);
+            });
+            skip += limit;
+        } catch (err) { console.error("Error:", err); }
+    }
+
+    // --- MODAL LOGIC ---
+    const modal = document.getElementById("quickViewModal");
+    const modalImage = document.getElementById("modalImage");
+    const modalName = document.getElementById("modalName");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalPrice = document.getElementById("modalPrice");
+    const addToCartBtn = document.getElementById("addToCartBtn");
+    const buyNowBtn = document.getElementById("buyNowBtn");
+    const closeModal = document.getElementById("closeModal");
+
+    function openQuickView(product) {
+        modalImage.src = product.image;
+        modalName.textContent = product.name;
+        modalDesc.textContent = product.description || "A masterfully crafted piece for your sanctuary.";
+        modalPrice.textContent = "₹" + product.price;
+
+        addToCartBtn.onclick = () => {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(product);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            showToast(`${product.name} added to bag`);
+            modal.classList.add("hidden");
+        };
+
+        buyNowBtn.onclick = () => {
+            window.location.href = "checkout.html";
+        };
+
+        modal.classList.remove("hidden");
+    }
+
+    closeModal.onclick = () => modal.classList.add("hidden");
+    window.onclick = (e) => { if(e.target === modal) modal.classList.add("hidden"); };
+
+    viewMoreBtn.onclick = loadProducts;
+    loadProducts();
+</script>
+
+</body>
+</html>

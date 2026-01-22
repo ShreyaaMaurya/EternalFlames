@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curated Collections | EternalFlame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --bg-beige: #f5f0e6;
+            --terracotta: #a85d44;
+            --clay-text: #1C1C1C;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-beige); color: var(--clay-text); margin: 0; }
+        .font-display { font-family: 'Cormorant Garamond', serif; }
+
+        /* Loader */
+        .eternal-loader {
+            width: 50px; padding: 4px; aspect-ratio: 1; border-radius: 50%; background: var(--terracotta);
+            --_m: conic-gradient(#0000 10%,#000), linear-gradient(#000 0 0) content-box;
+            -webkit-mask: var(--_m); mask: var(--_m); -webkit-mask-composite: source-out; mask-composite: subtract;
+            animation: l3 1s infinite linear;
+        }
+        @keyframes l3 { to { transform: rotate(1turn); } }
+        .loader-hide { opacity: 0; visibility: hidden; transition: opacity 0.8s ease-out, visibility 0.8s; }
+    </style>
+</head>
+
+<body class="antialiased">
+
+<div id="header"></div>
+
+<div id="loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#f5f0e6]">
+    <div class="eternal-loader"></div>
+    <p class="mt-8 font-display text-[var(--terracotta)] text-[10px] uppercase tracking-[0.6em] animate-pulse">Eternal Flame</p>
+</div>
+
+<section class="relative w-full min-h-[85vh] bg-[#F9F6F1] flex flex-col md:flex-row overflow-hidden">
+    <div class="relative h-[50vh] md:h-auto md:w-1/2 overflow-hidden">
+        <img alt="Artisanal atmosphere" class="w-full h-full object-cover grayscale-[0.1] hover:scale-105 transition-transform duration-[6000ms]" src="https://akm-img-a-in.tosshub.com/lingo/hrb/images/story/202411/6728d3a964d5c-candles-040107644-16x9.jpg"/>
+        <div class="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/10 via-transparent to-[#F9F6F1]"></div>
+    </div>
+    <div class="flex-grow md:w-1/2 flex flex-col justify-center items-center md:items-start px-10 md:px-20 py-16 text-center md:text-left bg-[#F9F6F1]">
+        <div class="max-w-xl space-y-6">
+            <span class="text-[10px] font-sans tracking-[0.4em] uppercase text-[#B59978] font-medium mb-4 block">Our Story & Craft</span>
+            <h1 class="font-display text-5xl md:text-6xl font-light text-[#1C1C1C]">EternalFlame</h1>
+            <div class="w-12 h-[1px] bg-[#B59978]/40 mx-auto md:mx-0"></div>
+            <p class="text-[#8C8376] text-sm font-light leading-relaxed max-w-sm">Discover the art of curated light. Each flicker tells a story of passion and extraordinary craftsmanship.</p>
+        </div>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto py-32 px-6">
+    <div class="text-center mb-16">
+        <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-4">Exclusive Offers</h2>
+        <div class="w-12 h-[1px] bg-[var(--terracotta)]/40 mx-auto"></div>
+    </div>
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        </div>
+</section>
+
+<section class="max-w-7xl mx-auto py-32 px-6 bg-white rounded-t-[3rem] shadow-sm">
+    <div class="text-center mb-20">
+        <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-4">Explore Our World</h2>
+        <p class="text-[10px] uppercase tracking-[0.4em] text-[#B59978]">By Category</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+        <a href="fairylights.html" class="group block text-center">
+            <div class="relative aspect-[3/4] overflow-hidden mb-6 bg-[#f0f0f0]">
+                <img src="https://imgmediagumlet.lbb.in/media/2025/09/68c15875d755eb1ec050425f_1757501557720.jpg" alt="Fairy Lights" class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]">
+            </div>
+            <h3 class="font-display text-2xl mb-1">Fairy Lights</h3>
+            <span class="text-[9px] uppercase tracking-[0.3em] text-[#B59978]">Shop Collection</span>
+        </a>
+
+        <a href="diyas.html" class="group block text-center">
+            <div class="relative aspect-[3/4] overflow-hidden mb-6 bg-[#f0f0f0]">
+                <img src="https://cdn.britannica.com/53/263653-050-37A84AA1/diwali-hindu-festival-of-lights-celebration.jpg" alt="Diyas" class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]">
+            </div>
+            <h3 class="font-display text-2xl mb-1">Ceramic Diyas</h3>
+            <span class="text-[9px] uppercase tracking-[0.3em] text-[#B59978]">Shop Collection</span>
+        </a>
+
+        <a href="agarbattis.html" class="group block text-center">
+            <div class="relative aspect-[3/4] overflow-hidden mb-6 bg-[#f0f0f0]">
+                <img src="https://shreejiagarbatti.com/cdn/shop/files/PinkAgarbatti14.jpg?v=1689795828" alt="Agarbattis" class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]">
+            </div>
+            <h3 class="font-display text-2xl mb-1">Aromatic Agarbattis</h3>
+            <span class="text-[9px] uppercase tracking-[0.3em] text-[#B59978]">Shop Collection</span>
+        </a>
+
+        <a href="holders.html" class="group block text-center">
+            <div class="relative aspect-[3/4] overflow-hidden mb-6 bg-[#f0f0f0]">
+                <img src="https://m.media-amazon.com/images/I/61q3HGKt4UL.jpg" alt="Holders" class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]">
+            </div>
+            <h3 class="font-display text-2xl mb-1">Bespoke Holders</h3>
+            <span class="text-[9px] uppercase tracking-[0.3em] text-[#B59978]">Shop Collection</span>
+        </a>
+    </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="include.js"></script>
+<script>
+    // Loader Handling
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('loader').classList.add('loader-hide'), 800);
+    });
+
+    async function loadProducts() {
+        try {
+            const res = await fetch("http://localhost:4000/api/products?page=more-collections");
+            const data = await res.json();
+            const products = data.products || [];
+            const grid = document.getElementById("productGrid");
+            grid.innerHTML = "";
+
+            if (products.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center font-display italic text-gray-400 py-10">Our exclusive offers are returning soon.</p>`;
+                return;
+            }
+
+            products.forEach(p => {
+                grid.insertAdjacentHTML("beforeend", `
+                    <div class="group cursor-pointer">
+                        <div class="relative aspect-[4/5] overflow-hidden mb-6 bg-white">
+                            <img src="${p.image}" class="h-full w-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]" alt="${p.name}" />
+                        </div>
+                        <div class="text-center">
+                            <h3 class="font-display text-xl mb-1">${p.name}</h3>
+                            <p class="text-[var(--terracotta)] text-sm tracking-widest font-light">₹${p.price}</p>
+                        </div>
+                    </div>
+                `);
+            });
+        } catch (err) {
+            console.error("Error loading products:", err);
+        }
+    }
+
+    loadProducts();
+</script>
+</body>
+</html>

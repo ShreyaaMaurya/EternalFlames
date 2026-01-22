@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Add Product</title>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <div class="max-w-xl mx-auto mt-20 p-8 rounded-xl shadow-lg bg-white">
+    <h2 class="text-3xl font-bold text-center mb-8">Add New Product</h2>
+
+    <form id="productForm" class="space-y-5">
+      <input type="text" id="name" placeholder="Product Name" class="w-full border p-3 rounded-lg" required />
+      <input type="text" id="description" placeholder="Description" class="w-full border p-3 rounded-lg" required />
+      <input type="text" id="image" placeholder="Image URL" class="w-full border p-3 rounded-lg" required />
+      <input type="number" id="price" placeholder="Price" class="w-full border p-3 rounded-lg" required />
+      <input type="text" id="category" placeholder="Category (optional)" class="w-full border p-3 rounded-lg" />
+
+      <!-- 🔽 Dropdown to select which page the product goes to -->
+      <select id="page" class="w-full border p-3 rounded-lg">
+        <option value="home">Home Page</option>
+        <option value="products">Products Page</option>
+        <option value="more-collections">More Collections Page</option>
+        <option value="fairylights">Fairylights Page</option>
+        <option value="diyas">Diyas Page</option>
+        <option value="agarbattis">Agarbattis Page</option>
+        <option value="holders">Holders Page</option>
+      </select>
+
+      <button type="submit" class="w-full bg-black text-white py-3 rounded-lg text-lg hover:bg-gray-800">
+        Add Product
+      </button>
+    </form>
+
+    <p id="msg" class="text-center mt-4 font-semibold"></p>
+  </div>
+
+  <script>
+    document.getElementById("productForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const image = document.getElementById("image").value.trim();
+      const price = document.getElementById("price").value.trim();
+      const category = document.getElementById("category").value.trim();
+      const page = document.getElementById("page").value;
+
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        document.getElementById("msg").innerText = "Please login as admin first.";
+        return;
+      }
+
+      const product = { name, description, image, price, category, page };
+
+      try {
+        const res = await fetch("http://localhost:4000/api/products/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify(product),
+        });
+
+        const data = await res.json();
+        document.getElementById("msg").innerText = data.message || "Product added successfully!";
+
+        if (res.ok) document.getElementById("productForm").reset();
+      } catch (err) {
+        document.getElementById("msg").innerText = "Error adding product.";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<header class="sticky top-0 z-50 bg-[var(--bg-beige)]/98 backdrop-blur-md shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 sm:h-20 md:h-24">
+      
+      <div class="flex items-center flex-1">
+        <button id="mobileMenuBtn" class="md:hidden p-2 text-[var(--terracotta)] hover:bg-[var(--terracotta)]/10 rounded-lg transition-all duration-200">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+        
+        <nav class="hidden md:flex space-x-1 text-[11px] font-semibold uppercase tracking-[0.2em]">
+          <a class="text-[var(--clay-text)] px-3 py-2 border-b-2 border-[var(--terracotta)]" href="/index.html">Home</a>
+          <a class="text-slate-600 px-3 py-2 hover:text-[var(--terracotta)] transition-colors border-b-2 border-transparent" href="/product.html">Products</a>
+        </nav>
+      </div>
+
+      <div class="flex-shrink-0 flex justify-center mx-2">
+        <a href="/index.html">
+          <img
+            src="/media/images/Eternal_Flames-removebg-preview.png"
+            alt="EternalFlame"
+            class="h-8 sm:h-10 md:h-14 lg:h-20 w-auto object-contain mix-blend-multiply transition-transform hover:scale-105"
+          />
+        </a>
+      </div>
+
+      <div class="flex items-center justify-end flex-1 gap-1 sm:gap-2 md:gap-8">
+        <nav class="hidden md:flex space-x-1 text-[11px] font-semibold uppercase tracking-[0.2em]">
+          <a class="text-slate-600 px-3 py-2 hover:text-[var(--terracotta)] transition-colors border-b-2 border-transparent hover:border-[var(--terracotta)]" href="/collection.html">Collections</a>
+          <a class="text-slate-600 px-3 py-2 hover:text-[var(--terracotta)] transition-colors border-b-2 border-transparent hover:border-[var(--terracotta)]" href="/contact.html">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-1 sm:gap-2">
+          <a href="/template/profile.html" class="p-2 sm:p-3 text-[var(--terracotta)] hover:bg-[var(--terracotta)]/10 rounded-lg transition-all duration-200 hover:scale-110">
+            <span class="material-symbols-outlined text-2xl">person</span>
+          </a>
+
+          <a href="/template/cart.html" class="p-2 sm:p-3 relative text-[var(--terracotta)] hover:bg-[var(--terracotta)]/10 rounded-lg transition-all duration-200 hover:scale-110">
+            <span class="material-symbols-outlined text-2xl">shopping_bag</span>
+            <span class="absolute -top-1 -right-1 bg-[var(--terracotta)] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-md">
+              3
+            </span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[var(--bg-beige)] to-[var(--bg-beige)]/95 border-t border-[var(--terracotta)]/20 shadow-lg">
+      <nav class="flex flex-col py-2 px-3">
+        <a class="text-[var(--clay-text)] text-sm font-semibold uppercase tracking-wider py-3 px-4 rounded-lg border-l-4 border-[var(--terracotta)] bg-[var(--terracotta)]/5 transition-all duration-200 mb-1" href="/index.html">
+          <span class="material-symbols-outlined text-xs align-text-bottom mr-2">home</span>
+          Home
+        </a>
+        <a class="text-slate-700 text-sm font-semibold uppercase tracking-wider py-3 px-4 rounded-lg hover:bg-[var(--terracotta)]/8 transition-all duration-200 border-l-4 border-transparent mb-1" href="/product.html">
+          <span class="material-symbols-outlined text-xs align-text-bottom mr-2">shopping_cart</span>
+          Products
+        </a>
+        <a class="text-slate-700 text-sm font-semibold uppercase tracking-wider py-3 px-4 rounded-lg hover:bg-[var(--terracotta)]/8 transition-all duration-200 border-l-4 border-transparent mb-1" href="/collection.html">
+          <span class="material-symbols-outlined text-xs align-text-bottom mr-2">collections</span>
+          Collections
+        </a>
+        <a class="text-slate-700 text-sm font-semibold uppercase tracking-wider py-3 px-4 rounded-lg hover:bg-[var(--terracotta)]/8 transition-all duration-200 border-l-4 border-transparent mb-1" href="/contact.html">
+          <span class="material-symbols-outlined text-xs align-text-bottom mr-2">mail</span>
+          Contact
+        </a>
+        <div class="border-t border-[var(--terracotta)]/20 my-2"></div>
+        <a class="text-slate-700 text-sm font-semibold uppercase tracking-wider py-3 px-4 rounded-lg hover:bg-[var(--terracotta)]/8 transition-all duration-200 border-l-4 border-transparent mb-1" href="/template/profile.html">
+          <span class="material-symbols-outlined text-xs align-text-bottom mr-2">person</span>
+          Profile
+        </a>
+        <a class="text-slate-700 text-sm font-semibold uppercase tracking-wider py-3 px-4 rounded-lg hover:bg-[var(--terracotta)]/8 transition-all duration-200 border-l-4 border-transparent" href="/template/cart.html">
+          <span class="material-symbols-outlined text-xs align-text-bottom mr-2">shopping_bag</span>
+          Bag
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>

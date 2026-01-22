@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+<!-- NAVBAR -->
+  <div id="header"></div>
+
+<!--Add product option-->
+
+
+<body class="bg-gray-50 text-gray-900">
+  <div class="max-w-xl mx-auto mt-20 p-8 rounded-xl shadow-lg bg-white">
+    <h2 class="text-3xl font-bold text-center mb-8">Add New Product</h2>
+
+    <form id="productForm" class="space-y-5">
+      <input type="text" id="name" placeholder="Product Name" class="w-full border p-3 rounded-lg" required />
+
+      <input type="text" id="description" placeholder="Description" class="w-full border p-3 rounded-lg" required />
+
+      <input type="text" id="image" placeholder="Image URL" class="w-full border p-3 rounded-lg" required />
+
+      <input type="number" id="price" placeholder="Price" class="w-full border p-3 rounded-lg" required />
+
+      <button type="submit" class="w-full bg-black text-white py-3 rounded-lg text-lg hover:bg-gray-800">
+        Add Product
+      </button>
+    </form>
+
+    <p id="msg" class="text-center mt-4 font-semibold"></p>
+  </div>
+  
+
+
+  <script>
+    document.getElementById("productForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const product = {
+        name: document.getElementById("name").value,
+        description: document.getElementById("description").value,
+        image: document.getElementById("image").value,
+        price: document.getElementById("price").value
+      };
+
+      const res = await fetch("http://localhost:4000/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product)
+      });
+
+      const data = await res.json();
+      document.getElementById("msg").innerText = data.message;
+    });
+
+
+  </script>
+  <!--Footer-->
+   <div id="footer"></div>
+    <script src="include.js"></script>
+
+</body>
+</html>

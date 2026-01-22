@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EternalFlame | Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-950 text-gray-100 font-sans">
+  <!-- Navbar -->
+  <nav class="p-5 bg-gray-900 flex justify-between items-center shadow-lg">
+    <h2 class="text-2xl font-bold tracking-wide">🔥 EternalFlame Admin</h2>
+    <button onclick="logout()" class="bg-red-600 px-5 py-2 rounded-lg hover:bg-red-700 transition">
+      Logout
+    </button>
+  </nav>
+
+  <!-- Dashboard Header -->
+  <header class="text-center py-10">
+    <h1 class="text-4xl font-extrabold">Welcome, Admin</h1>
+    <p class="text-gray-400 mt-2">Manage your store, products, and customers</p>
+  </header>
+
+  <!-- Dashboard Cards -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-16">
+
+    <!-- Add Product -->
+    <a href="./admin-template/admin-add-product.html" class="group">
+      <div class="bg-gray-800 p-8 rounded-2xl text-center shadow-md hover:shadow-xl hover:bg-gray-700 transition">
+        <div class="text-5xl mb-3">➕</div>
+        <h3 class="text-xl font-semibold mb-1">Add Product</h3>
+        <p class="text-gray-400 text-sm">Add new candles or sparklers to your store</p>
+      </div>
+    </a>
+
+    <!-- View Products -->
+    <a href="./admin-template/view-products.html" class="group">
+      <div class="bg-gray-800 p-8 rounded-2xl text-center shadow-md hover:shadow-xl hover:bg-gray-700 transition">
+        <div class="text-5xl mb-3">🛍️</div>
+        <h3 class="text-xl font-semibold mb-1">View / Manage Products</h3>
+        <p class="text-gray-400 text-sm">Edit, delete, or view all items</p>
+      </div>
+    </a>
+
+    <!-- Orders -->
+    <a href="./admin-template/orders.html" class="group">
+      <div class="bg-gray-800 p-8 rounded-2xl text-center shadow-md hover:shadow-xl hover:bg-gray-700 transition">
+        <div class="text-5xl mb-3">📦</div>
+        <h3 class="text-xl font-semibold mb-1">Orders</h3>
+        <p class="text-gray-400 text-sm">View and manage customer orders</p>
+      </div>
+    </a>
+
+    <!-- Offers -->
+    <a href="./admin-template/offers.html" class="group">
+      <div class="bg-gray-800 p-8 rounded-2xl text-center shadow-md hover:shadow-xl hover:bg-gray-700 transition">
+        <div class="text-5xl mb-3">🎁</div>
+        <h3 class="text-xl font-semibold mb-1">Offers & Discounts</h3>
+        <p class="text-gray-400 text-sm">Create and manage promotional offers</p>
+      </div>
+    </a>
+
+    <!-- Messages -->
+    <a href="./admin-template/customerMessage.html" class="group">
+      <div class="bg-gray-800 p-8 rounded-2xl text-center shadow-md hover:shadow-xl hover:bg-gray-700 transition">
+        <div class="text-5xl mb-3">💌</div>
+        <h3 class="text-xl font-semibold mb-1">Customer Messages</h3>
+        <p class="text-gray-400 text-sm">View inquiries and contact form messages</p>
+      </div>
+    </a>
+
+    <!-- Analytics -->
+    <a href="./admin-template/analytics.html" class="group">
+      <div class="bg-gray-800 p-8 rounded-2xl text-center shadow-md hover:shadow-xl hover:bg-gray-700 transition">
+        <div class="text-5xl mb-3">📊</div>
+        <h3 class="text-xl font-semibold mb-1">Analytics</h3>
+        <p class="text-gray-400 text-sm">Monitor product, sales, and order stats</p>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-center py-4 text-gray-500 text-sm border-t border-gray-800">
+    &copy; 2025 EternalFlame Admin Panel. All rights reserved.
+  </footer>
+
+  <script>
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      window.location.href = "adminLogin.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("adminToken");
+      window.location.href = "adminLogin.html";
+    }
+  </script>
+</body>
+</html>

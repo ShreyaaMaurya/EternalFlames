@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile | EternalFlame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        :root {
+            --bg-beige: #f5f0e6;
+            --terracotta: #a85d44;
+            --clay-text: #1C1C1C;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-beige); color: var(--clay-text); }
+        .font-display { font-family: 'Cormorant Garamond', serif; }
+
+        .eternal-loader {
+            width: 50px; padding: 4px; aspect-ratio: 1; border-radius: 50%; background: var(--terracotta);
+            --_m: conic-gradient(#0000 10%,#000), linear-gradient(#000 0 0) content-box;
+            -webkit-mask: var(--_m); mask: var(--_m); -webkit-mask-composite: source-out; mask-composite: subtract;
+            animation: l3 1s infinite linear;
+        }
+        @keyframes l3 { to { transform: rotate(1turn); } }
+        .loader-hide { opacity: 0; visibility: hidden; transition: opacity 0.8s ease-out, visibility 0.8s; }
+        
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+
+<body class=" text-gray-900">
+    <div id="loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#f5f0e6]">
+        <div class="eternal-loader"></div>
+        <p class="mt-8 font-serif text-[var(--terracotta)] text-[10px] uppercase tracking-[0.6em] animate-pulse">Eternal Flame</p>
+    </div>
+
+    <div id="header"></div>
+
+    <main class="flex-grow flex items-center justify-center py-20 px-6">
+        <div class="w-full max-w-md bg-white shadow-2xl rounded-3xl overflow-hidden border border-neutral-100">
+            
+            <div class="h-2 bg-[var(--terracotta)]"></div>
+
+            <div class="p-10 flex flex-col items-center">
+                <div class="relative mb-8">
+                    <div class="w-32 h-32 rounded-full border-2 border-neutral-100 p-1 bg-white">
+                        <img id="profilePic" alt="User Avatar" class="w-full h-full object-cover rounded-full" src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"/>
+                    </div>
+                    <label for="imageUpload" class="absolute bottom-1 right-1 bg-white p-2 rounded-full shadow-lg border border-neutral-100 text-[var(--terracotta)] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </label>
+                    <input type="file" id="imageUpload" accept="image/*" class="hidden">
+                </div>
+
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl font-serif font-semibold text-neutral-900 mb-2">
+                        Hello, <span id="userName">...</span> 👋
+                    </h1>
+                    <span class="inline-block px-4 py-1 bg-[#a85d4415] text-[var(--terracotta)] text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+                        Elite Member
+                    </span>
+                </div>
+
+                <div class="w-full space-y-4 mb-10">
+                    <div class="flex flex-col border-b border-neutral-50 pb-4">
+                        <span class="text-[11px] uppercase tracking-widest text-neutral-400 font-medium mb-1">Email Address</span>
+                        <span id="userEmail" class="text-neutral-800 font-medium">Loading...</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-widest text-neutral-400 font-medium mb-1">Member Since</span>
+                        <span id="userJoined" class="text-neutral-800 font-medium">Loading...</span>
+                    </div>
+                </div>
+<div class="grid grid-cols-1 gap-4 w-full">
+    <a href="cart.html" class="flex items-center justify-center gap-3 bg-[var(--terracotta)] text-white py-4 rounded-xl font-medium tracking-wide hover:shadow-lg hover:opacity-95 transition-all">
+        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+        VIEW SHOPPING BAG
+    </a>
+
+    <a href="/order-summary.html" class="flex items-center justify-center gap-3 border-2 border-[var(--terracotta)] text-[var(--terracotta)] py-4 rounded-xl font-bold tracking-wide hover:bg-[var(--terracotta)] hover:text-white transition-all">
+        <span class="material-symbols-outlined text-[22px]">package_2</span>
+        VIEW MY ORDERS
+    </a>
+</div>
+
+                <button onclick="logout()" class="mt-8 text-neutral-400 hover:text-red-600 transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
+                    <span class="material-symbols-outlined text-[18px]">logout</span> Sign Out
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="/include.js"></script>
+    <script>
+        // Loader Control
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('loader').classList.add('loader-hide'), 800);
+        });
+
+        // Profile Fetching
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("token");
+            if (!token) { window.location.href = "login.html"; return; }
+
+            try {
+                const res = await fetch("http://localhost:4000/api/users/profile", {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById("userName").textContent = data.user.name;
+                    document.getElementById("userEmail").textContent = data.user.email;
+                    document.getElementById("userJoined").textContent = new Date(data.user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                    if (data.user.avatar) document.getElementById("profilePic").src = data.user.avatar;
+                }
+            } catch (error) {
+                console.error(error);
+                logout();
+            }
+        });
+
+        // Image Upload
+        document.getElementById("imageUpload").addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append("avatar", file);
+            const token = localStorage.getItem("token");
+
+            try {
+                const res = await fetch("http://localhost:4000/api/users/upload-avatar", {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}` },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById("profilePic").src = data.url;
+                }
+            } catch (err) { alert("Upload failed"); }
+        });
+
+        document.getElementById("orderBtn").onclick = () => location.href = "order-summary.html";
+
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

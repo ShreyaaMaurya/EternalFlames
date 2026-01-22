@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Earth &amp; Clay - Elegant Handmade Candles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#a85d44", // Muted terracotta
+                        "clay-dark": "#2d2926", // Deep clay / charcoal
+                        "earth-beige": "#f5f0e6", // Warm beige background
+                        "accent-terracotta": "#c67b5c",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        logo: ["Cinzel", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --bg-beige: #f5f0e6;
+            --clay-text: #2d2926;
+            --terracotta: #a85d44;
+            --footer-start: #e9d5c3;
+            --footer-end: #f4d9d9;
+        }
+        .header-shadow {
+            box-shadow: 0 4px 20px -10px rgba(45, 41, 38, 0.1);
+        }
+        .footer-gradient {
+            background: linear-gradient(135deg, var(--footer-start) 0%, var(--footer-end) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<footer class="footer-gradient px-6 pt-12 pb-24 text-[var(--clay-text)]">
+<div class="space-y-10">
+<div class="space-y-3">
+<h2 class="font-display text-3xl font-medium">EternalFlame</h2>
+<p class="text-sm opacity-70 leading-relaxed max-w-xs">
+                        Luxury handcrafted candles made to elevate space, mood and lifestyle.
+                    </p>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<h4 class="text-sm font-bold uppercase tracking-widest">Explore</h4>
+<ul class="space-y-2.5 text-sm opacity-70">
+<li><a class="hover:text-[var(--terracotta)]" href="#">Home</a></li>
+<li><a class="hover:text-[var(--terracotta)]" href="#">Products</a></li>
+<li><a class="hover:text-[var(--terracotta)]" href="#">Collections</a></li>
+<li><a class="hover:text-[var(--terracotta)]" href="#">Offers</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-sm font-bold uppercase tracking-widest">Follow us on</h4>
+<ul class="space-y-2.5 text-sm opacity-70">
+<li><a class="hover:text-[var(--terracotta)]" href="#">Instagram</a></li>
+<li><a class="hover:text-[var(--terracotta)]" href="#">Facebook</a></li>
+</ul>
+</div>
+</div>
+<div class="space-y-4 pt-2">
+<h4 class="text-sm font-bold uppercase tracking-widest">Subscribe</h4>
+<p class="text-xs opacity-70">Get exclusive candle drops + offers.</p>
+<div class="flex gap-2">
+<input class="flex-1 bg-white/50 border-none rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-[var(--terracotta)] placeholder:text-[var(--clay-text)]/40" placeholder="Email Address" type="email"/>
+<button class="bg-[var(--clay-dark)] text-white px-6 py-3 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-black transition-colors">Join</button>
+</div>
+</div>
+<div class="pt-8 border-t border-[var(--clay-text)]/10 text-center">
+<p class="text-[10px] opacity-50 font-medium tracking-wide">
+                        © 2025 EternalFlame. All Rights Reserved.
+                    </p>
+</div>
+</div>
+</footer>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const userActions = document.getElementById("userActions");
+    const loginLink = document.getElementById("loginLink");
+
+    if (token) {
+      // Hide login link
+      if (loginLink) loginLink.style.display = "none";
+
+      // Show cart + logout buttons
+      userActions.innerHTML = `
+        <a href="./cart.html" class="flex items-center text-black hover:text-blue-600 transition">
+          🛒 <span class="ml-1 font-medium">Bag</span>
+        </a>
+        <button onclick="logoutUser()" class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
+          Logout
+        </button>
+      `;
+    }
+  });
+
+  function logoutUser() {
+    localStorage.removeItem("token");
+    alert("You’ve been logged out successfully!");
+    window.location.href = "./login.html";
+  }
+</script>
+</body>
+</html>
