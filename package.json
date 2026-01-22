@@ -2,7 +2,7 @@
   "name": "newproject",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "backend/server.js",
   "scripts": {
     "build-css": "tailwindcss -i ./src/input.css -o ./my-project/template/output.css --watch",
     "build-css-prod": "tailwindcss -i ./src/input.css -o ./my-project/template/output.css --minify",
