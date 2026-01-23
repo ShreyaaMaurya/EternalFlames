@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true
+      lowercase: true,
+      trim: true
     },
     password: {
       type: String,
@@ -25,6 +26,17 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
       default: null
+    },
+    // --- NEW FIELDS FOR PROFILE UPDATES ---
+    phone: {
+      type: String,
+      default: "",
+      trim: true
+    },
+    address: {
+      type: String,
+      default: "",
+      trim: true
     }
   },
   { timestamps: true }
